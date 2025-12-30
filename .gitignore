@@ -1,0 +1,23 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Config with sensitive data
+config.json
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# WebDriver cache
+.wdm/

@@ -1,0 +1,35 @@
+{
+    "prtg": {
+        "base_url": "https://your-prtg-server.com",
+        "username": "your-username",
+        "password": "your-password"
+    },
+    "smtp": {
+        "server": "mail.example.com",
+        "port": 25,
+        "username": "",
+        "password": "",
+        "use_tls": false
+    },
+    "email": {
+        "sender": "sender@example.com",
+        "recipients": [
+            "recipient@example.com"
+        ]
+    },
+    "servers": [
+        {
+            "name": "Server1",
+            "map_id": 1234
+        },
+        {
+            "name": "Server2",
+            "map_id": 5678
+        }
+    ],
+    "monitoring": {
+        "check_interval_seconds": 60,
+        "normal_color": "#B8C419",
+        "error_color": "#e30613"
+    }
+}
