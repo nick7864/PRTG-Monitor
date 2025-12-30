@@ -16,9 +16,9 @@
 
 | 伺服器名稱 | Map ID | URL |
 |-----------|--------|-----|
-| DEVAP | 9927 | https://prtg21.radium.com.tw/mapshow.htm?id=9927 |
-| erpapec.radium.com.tw | 9952 | https://prtg21.radium.com.tw/mapshow.htm?id=9952 |
-| radiumdb2019 | 9928 | https://prtg21.radium.com.tw/mapshow.htm?id=9928 |
+| DEVAP | 9927 | |
+| erpapec.radium.com.tw | 9952 | |
+| radiumdb2019 | 9928 | |
 
 ## 安裝步驟
 
