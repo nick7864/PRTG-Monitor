@@ -47,40 +47,6 @@ uv pip install -r requirements.txt
 
 編輯 `config.json`，設定 SMTP：
 
-**內網無認證 Relay（如 Radium）：**
-```json
-{
-  "smtp": {
-    "server": "mail.radium.com.tw",
-    "port": 25,
-    "username": "",
-    "password": "",
-    "use_tls": false
-  },
-  "email": {
-    "sender": "EIP_admin@radium.com.tw",
-    "recipients": ["nickjiang@radium.com.tw"]
-  }
-}
-```
-
-**外部 SMTP（需認證）：**
-```json
-{
-  "smtp": {
-    "server": "smtp.gmail.com",
-    "port": 587,
-    "username": "your-email@gmail.com",
-    "password": "your-app-password",
-    "use_tls": true
-  },
-  "email": {
-    "sender": "your-email@gmail.com",
-    "recipients": ["recipient@example.com"]
-  }
-}
-```
-
 > **注意**：如果 SMTP server 留空，程式仍可運行但不會發送郵件通知。
 
 ## 使用方式
