@@ -93,3 +93,92 @@ Map ID 可從 PRTG Map 頁面的 URL 取得，例如：`mapshow.htm?id=9928` 中
 ## 停止監控
 
 按下 `Ctrl + C` 即可停止程式。
+
+---
+
+## Docker 部署
+
+### 部署架構
+
+```
+┌─────────────────────────────────────────┐
+│           Docker Container              │
+│  ┌─────────────────────────────────┐   │
+│  │  selenium/standalone-chrome     │   │
+│  │  ├── Chrome 瀏覽器              │   │
+│  │  ├── ChromeDriver               │   │
+│  │  └── Python 3 + 你的程式        │   │
+│  └─────────────────────────────────┘   │
+│                  │                      │
+│                  ▼                      │
+│         config.json (外部映射)          │
+└─────────────────────────────────────────┘
+```
+
+### 部署檔案說明
+
+| 檔案 | 用途 |
+|------|------|
+| `Dockerfile` | 定義如何建立映像檔 |
+| `docker-compose.yml` | 定義服務設定（簡化啟動指令） |
+| `.dockerignore` | 排除不需要複製的檔案 |
+
+### 快速部署
+
+```bash
+# 1. 建置並啟動（首次或程式更新後）
+docker-compose up -d --build
+
+# 2. 查看日誌
+docker-compose logs -f
+
+# 3. 停止服務
+docker-compose down
+```
+
+### 常用管理指令
+
+| 指令 | 功能 |
+|------|------|
+| `docker-compose up -d` | 背景啟動容器 |
+| `docker-compose up -d --build` | 重新建置後啟動 |
+| `docker-compose down` | 停止並移除容器 |
+| `docker-compose restart` | 重新啟動容器 |
+| `docker-compose logs -f` | 查看即時日誌 |
+| `docker-compose logs --tail 100` | 查看最近 100 行日誌 |
+| `docker-compose build --no-cache` | 清除快取重新建置 |
+
+### 更新設定檔
+
+`config.json` 已映射到容器外，修改後只需重啟：
+
+```bash
+docker-compose restart
+```
+
+### 更新程式碼
+
+修改 Python 程式後需要重新建置：
+
+```bash
+docker-compose up -d --build
+```
+
+### 疑難排解
+
+#### 1. ChromeDriver 版本不匹配
+
+程式會自動偵測 Docker 環境並使用容器內建的 ChromeDriver，不會出現版本問題。
+
+#### 2. 無法連線到 PRTG
+
+確認：
+- `config.json` 中的 PRTG URL 正確
+- 容器可以存取該 URL（網路連通性）
+- PRTG 帳號密碼正確
+
+#### 3. Email 無法發送
+
+確認：
+- SMTP 伺服器設定正確
+- 容器可以存取 SMTP 伺服器（防火牆）

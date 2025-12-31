@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  prtg-monitor:
+    build: .
+    container_name: prtg-monitor
+    restart: unless-stopped
+    volumes:
+      # 映射設定檔，方便外部修改而不需重建映像
+      - ./config.json:/app/config.json:ro
+    environment:
+      - TZ=Asia/Taipei

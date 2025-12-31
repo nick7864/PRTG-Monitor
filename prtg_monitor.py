@@ -7,6 +7,7 @@ PRTG 多伺服器監控告警系統
 import json
 import time
 import sys
+import os
 import argparse
 import logging
 import re
@@ -82,8 +83,18 @@ class PRTGMonitor:
         options.add_argument('--ignore-ssl-errors')
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         
-        service = Service(ChromeDriverManager().install())
-        self.driver = webdriver.Chrome(service=service, options=options)
+        # 判斷是否在 Docker 環境中
+        is_docker = Path('/.dockerenv').exists() or os.environ.get('CHROME_BIN')
+        
+        if is_docker:
+            # Docker 環境：使用系統內建的 ChromeDriver
+            logger.info("偵測到 Docker 環境，使用系統 ChromeDriver")
+            self.driver = webdriver.Chrome(options=options)
+        else:
+            # 本機環境：使用 webdriver-manager 自動下載
+            service = Service(ChromeDriverManager().install())
+            self.driver = webdriver.Chrome(service=service, options=options)
+        
         self.driver.implicitly_wait(10)
         
         logger.info("瀏覽器初始化完成")
